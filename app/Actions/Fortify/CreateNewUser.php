@@ -32,9 +32,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        str_contains($input['name'], 'Admin') ? $role_id = 1 : $role_id = 2;
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'role_id' => $role_id,
             'password' => Hash::make($input['password']),
         ]);
     }
