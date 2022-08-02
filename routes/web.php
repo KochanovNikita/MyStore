@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/', \App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
+
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('/', \App\Http\Controllers\Admin\User\IndexController::class)->name('admin.user.index');
+    });
+});
