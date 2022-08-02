@@ -11,8 +11,6 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminLTE/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset('adminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminLTE/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -32,16 +30,22 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{route('admin.index')}}" class="nav-link">Главная</a>
                 </li>
+                @auth
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">
-                        @auth
-                            Авторизован
-                        @endauth
-                        @guest
-                            Не авторизован
-                        @endguest
-                    </a>
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button class="nav-link btn ">Выйти</button>
+                    </form>
                 </li>
+                @endauth
+                @guest
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{route('login')}}" class="nav-link">Войти</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{route('register')}}" class="nav-link">Зарегистрироваться</a>
+                </li>
+                @endguest
             </ul>
 
             <!-- Right navbar links -->
@@ -130,8 +134,6 @@
     <script src="{{ asset('adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminLTE/dist/js/adminlte.js') }}"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{asset('adminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 </body>
 
 </html>
