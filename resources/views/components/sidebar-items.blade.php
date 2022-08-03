@@ -5,7 +5,7 @@
 ])
 
 <li class="nav-item">
-    <a href="{{route($link)}}" class="nav-link">
+    <a href="{{$link}}" class="nav-link">
         <i class="nav-icon {{$icon}}"></i>
         <p>
             {{$title}}

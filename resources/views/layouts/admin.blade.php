@@ -9,7 +9,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
+        <link rel="stylesheet" href="{{ asset('adminLTE/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
@@ -57,7 +57,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{route('admin.index')}}" class="brand-link">
                 <span class="brand-text font-weight-light">MyStore</span>
             </a>
 
@@ -69,7 +69,7 @@
                         <img src="{{ url(Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="{{route('admin.user.show', Auth::user()->id)}}" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -122,6 +122,8 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
+
+   
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -130,6 +132,12 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminLTE/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('adminLTE/plugins/select2/js/select2.full.min.js')}}"></script>
+    <script>
+    $(function () {
+        $('.select2').select2()
+    })
+    </script>
 </body>
 
 </html>

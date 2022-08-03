@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->foreignId('category_id')->index()->constrained('categories');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('subcategories');
     }
 };
