@@ -1,0 +1,7 @@
+.actions__icon i{
+    font-size: 20px;
+}
+
+.delete {
+    cursor: pointer;
+}

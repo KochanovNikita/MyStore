@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\User;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class IndexController extends Controller
+class StoreController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -17,8 +17,8 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $users = User::all();
-        $user = Auth()->user()->role_id;
-        return view('admin.user.index', compact('users', 'user'));
+        $newUser = new CreateNewUser();
+        $newUser->create($request->all());
+        return redirect()->route('admin.user.index');
     }
 }

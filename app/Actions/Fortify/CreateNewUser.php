@@ -30,14 +30,21 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
+            'role_id' => ['nullable', 'integer'],
+            'address' => ['nullable', 'string'],
         ])->validate();
 
-        str_contains($input['name'], 'Admin') ? $role_id = 1 : $role_id = 2;
+        if(isset($input['role_id'])) {
+            $role_id = $input['role_id'];
+        } else {
+            str_contains($input['name'], 'Admin') ? $role_id = 1 : $role_id = 2;
+        }
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'role_id' => $role_id,
+            'address' => $input['address'],
             'password' => Hash::make($input['password']),
         ]);
     }

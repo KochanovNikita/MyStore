@@ -2,7 +2,9 @@
 
 namespace App\Actions\Fortify;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
@@ -28,7 +30,17 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
+
+            'role_id' => ['nullable', 'integer'],
+            'address' => ['nullable', 'string'],
+            'avatar_path' => ['nullable', 'image'],
         ])->validateWithBag('updateProfileInformation');
+
+        if(!isset($input['avatar_path'])) {
+            $avatar = $user->avatar_path;
+        } else {
+            $avatar = $this->updateUserAvatar($input['avatar_path'], $user->avatar_path);
+        }
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
@@ -37,6 +49,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'address' => $input['address'],
+                'role_id' => $input['role_id'],
+                'avatar_path' => $avatar,
             ])->save();
         }
     }
@@ -57,5 +72,19 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->save();
 
         $user->sendEmailVerificationNotification();
+    }
+
+    private function updateUserAvatar($newAvatar, $oldAvatar) {
+        $fileName = md5(Carbon::now().'_'.$newAvatar->getClientOriginalName()).'.'.$newAvatar->getClientOriginalExtension();
+        $path = Storage::disk('public')->putFileAs('/images/avatars', $newAvatar, $fileName);
+
+        \Intervention\Image\Facades\Image::make($newAvatar)
+        ->resize(100, 100)
+        ->stream();
+
+        if($path && !str_contains($oldAvatar, 'no-avatar')) {
+            Storage::disk('public')->delete($oldAvatar);
+        }
+        return $path;
     }
 }

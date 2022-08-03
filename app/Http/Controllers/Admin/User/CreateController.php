@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class IndexController extends Controller
+class CreateController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -17,8 +16,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $users = User::all();
-        $user = Auth()->user()->role_id;
-        return view('admin.user.index', compact('users', 'user'));
+        $roles = User::getRoles();
+        return view('admin.user.create', compact('roles'));
     }
 }

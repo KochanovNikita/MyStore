@@ -12,18 +12,22 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    private const ROLE_ADMIN = 1;
-    private const ROLE_USER = 2;
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 2;
 
-    private static function getRoles() : array {
+    public static function getRoles() : array {
         return [
             self::ROLE_ADMIN => 'Администратор',
-            self::ROLE_USER => 'Клиент',
+            self::ROLE_USER => 'Клиент'
         ];
     }
 
-    public function getRoleAttribue() : string {
+    public function getRoleAttribute() : string {
         return self::getRoles()[$this->role_id];
+    }
+
+    public function getAvatarAttribute() : string {
+        return 'storage/'.$this->avatar_path;
     }
 
     /**
@@ -36,6 +40,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'avatar_path',
+        'address'
     ];
 
     /**

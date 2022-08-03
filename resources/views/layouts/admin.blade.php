@@ -9,12 +9,16 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminLTE/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminLTE/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -28,24 +32,14 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{route('admin.index')}}" class="nav-link">Главная</a>
+                    <a href="{{ route('admin.index') }}" class="nav-link">Главная</a>
                 </li>
-                @auth
                 <li class="nav-item d-none d-sm-inline-block">
-                    <form action="{{route('logout')}}" method="post">
+                    <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button class="nav-link btn ">Выйти</button>
                     </form>
                 </li>
-                @endauth
-                @guest
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{route('login')}}" class="nav-link">Войти</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{route('register')}}" class="nav-link">Зарегистрироваться</a>
-                </li>
-                @endguest
             </ul>
 
             <!-- Right navbar links -->
@@ -72,10 +66,10 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ url(Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -99,8 +93,9 @@
                     @includeWhen(Request::routeIs('admin.index'), 'includes.boxes')
                     <!-- /.row -->
                     <!-- Main row -->
-                    @yield('content')
-
+                    <div class="row">
+                        @yield('content')
+                    </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
             </section>
@@ -108,7 +103,7 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-{{now()->year}} <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2014-{{ now()->year }} <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
         </footer>
 
@@ -134,6 +129,7 @@
     <script src="{{ asset('adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminLTE/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 </body>
 
 </html>
