@@ -7,6 +7,14 @@
             <a href="{{ route('admin.user.edit', $user) }}" class="mx-4 ">
                 <i class="fas fa-pen text-warning"></i>
             </a>
+            <form class="d-inline" action="{{route('admin.user.destroy', $user)}}" method="post">
+                @csrf
+                @method('delete')
+                <input type='submit' class="d-none" id="{{'deleteUser'.$user->id}}">
+                <label for="{{'deleteUser'.$user->id}}" class="delete">
+                    <i class="fas fa-trash-alt text-danger"></i>
+                </label>
+            </form>
         </div>
     </x-content-header>
 @endsection
