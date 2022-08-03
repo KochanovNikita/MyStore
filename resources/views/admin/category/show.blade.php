@@ -39,4 +39,33 @@
 
         </div>
     </div>
+    <div class="col-12 col-lg-6 col-xl-4">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Подкатегория</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($category->subcategories as $subcategory)
+                            <tr>
+                                <th>
+                                    {{$subcategory->id}}
+                                </th>
+                                <th>
+                                    <a href="{{route('admin.subcategory.show', $subcategory->id)}}">
+                                        {{$subcategory->title}}
+                                    </a>
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 @endsection

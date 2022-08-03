@@ -35,7 +35,11 @@
                         </tr>
                         <tr>
                             <th>Родительская категория</th>
-                            <th>{{ $subcategory->category }}</th>
+                            <th>
+                                <a href="{{route('admin.category.show', $subcategory->category->id)}}">
+                                    {{ $subcategory->category->title }}
+                                </a>
+                            </th>
                         </tr>
                     </tbody>
                 </table>

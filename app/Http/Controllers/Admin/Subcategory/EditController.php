@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Subcategory;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class EditController extends Controller
      */
     public function __invoke(Subcategory $subcategory)
     {
-        return view('admin.subcategory.edit', compact('subcategory'));
+        $categories = Category::all();
+        return view('admin.subcategory.edit', compact('subcategory', 'categories'));
     }
 }
