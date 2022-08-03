@@ -17,8 +17,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $users = User::all();
-        $user = Auth()->user()->role_id;
-        return view('admin.user.index', compact('users', 'user'));
+        $users = User::paginate(20)->withQueryString();
+        return view('admin.user.index', compact('users'));
     }
 }
