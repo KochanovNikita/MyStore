@@ -78,7 +78,6 @@ class ProductService
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
             return redirect()->route('admin.product.edit', $product)->withErrors('Произошла ошибка', 'field');
         }
     }
