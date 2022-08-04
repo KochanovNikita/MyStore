@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -76,11 +77,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
     private function updateUserAvatar($newAvatar, $oldAvatar) {
         $fileName = md5(Carbon::now().'_'.$newAvatar->getClientOriginalName()).'.'.$newAvatar->getClientOriginalExtension();
-        $path = Storage::disk('public')->putFileAs('/images/avatars', $newAvatar, $fileName);
-
+        $path = 'images/avatars/'.$fileName;
         \Intervention\Image\Facades\Image::make($newAvatar)
-        ->resize(100, 100)
-        ->stream();
+        ->fit(100, 100)
+        ->save(storage_path('app/public/'.$path));
+
 
         if($path && !str_contains($oldAvatar, 'no-avatar')) {
             Storage::disk('public')->delete($oldAvatar);

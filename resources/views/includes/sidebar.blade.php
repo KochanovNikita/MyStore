@@ -15,5 +15,8 @@
 
       <x-sidebar-items :title="'Компании'"
       :link="route('admin.company.index')" :icon="'fab fa-adn'"></x-sidebar-items>
+
+      <x-sidebar-items :title="'Товары'"
+      :link="route('admin.product.index')" :icon="'fas fa-tshirt'"></x-sidebar-items>
   </ul>
 </nav>

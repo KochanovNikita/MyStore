@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('adminLTE/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
 </head>
 
@@ -123,7 +125,7 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button)
 
-   
+
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -134,10 +136,11 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('adminLTE/plugins/select2/js/select2.full.min.js')}}"></script>
     <script>
-    $(function () {
-        $('.select2').select2()
-    })
+        $(function () {
+            $('.select2').select2()
+        })
     </script>
+    @yield('script')
 </body>
 
 </html>

@@ -25,6 +25,7 @@
           <input type="email" name="email"
           value="{{old('email')}}" class="form-control">
         </div>
+
         @error('role_id')
         <div class="text-danger">{{$message}}</div>
         @enderror

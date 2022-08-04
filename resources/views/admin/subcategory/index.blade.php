@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
 @section('content-header')
-    <x-content-header>Панель управления категориями</x-content-header>
+    <x-content-header>Панель управления подкатегориями</x-content-header>
 @endsection
 
 @section('content')
     <div class="col mb-3">
-        <a href="{{ route('admin.subcategory.create') }}" class="btn btn-outline-primary">Создать категорию</a>
+        <a href="{{ route('admin.subcategory.create') }}" class="btn btn-outline-primary">Создать подкатегорию</a>
     </div>
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Категории</h3>
+                <h3 class="card-title">Подкатегории</h3>
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
