@@ -46,7 +46,6 @@ class ProductService
             DB::beginTransaction();
             $subcategories = $data['subcategories'];
 
-
             if(isset($data['images'])) {
                 $product->images()->delete();
                 $images = $data['images'];
@@ -76,6 +75,7 @@ class ProductService
 
             $product->update($data);
             $product->subcategories()->sync($subcategories);
+            DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
             dd($th);
