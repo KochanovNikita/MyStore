@@ -23,9 +23,11 @@ return new class extends Migration
             $table->string('main_image');
             $table->string('preview_image');
             $table->unsignedBigInteger('count')->nullable()->default(0);
+
             $table->foreignId('category_id')->index()->constrained('categories');
             $table->foreignId('company_id')->index()->constrained('companies');
             $table->foreignId('color_id')->index()->constrained('colors');
+
             $table->timestamps();
         });
     }
