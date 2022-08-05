@@ -30,8 +30,8 @@ class ProductFactory extends Factory
             'category_id' => Category::factory(),
             'company_id' => Company::factory(),
             'color_id' => Color::factory(),
-            'main_image' => 'images/productss/No_Image_Available.jpg',
-            'preview_image' => 'images/productss/No_Image_Available.jpg',
+            'main_image' => 'images/products/no-image.jpg',
+            'preview_image' => 'images/products/no-image.jpg',
         ];
     }
 }

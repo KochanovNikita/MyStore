@@ -43,7 +43,12 @@
                         @foreach ($products as $product)
                         <tr>
                             <td>{{$product->id}}</td>
-                            <td><img src="{{url($product->preview_image_path)}}" alt="product"></td>
+                            <td>
+                                <img src="{{url($product->preview_image_path)}}"
+                                alt="product"
+                                width="180"
+                                height="240">
+                            </td>
                             <td>{{$product->title}}</td>
                             <td>{{$product->description}}</td>
                             <td>{{$product->price}} BYN</td>
