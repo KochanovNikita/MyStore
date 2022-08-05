@@ -100,6 +100,19 @@
                         </select>
                       </div>
 
+                      @error('role_id')
+                      <div class="text-danger">{{$message}}</div>
+                      @enderror
+                      <div class="mb-3">
+                          <label class="form-label">Выберите пол</label>
+                          <select class="form-select" name="gender_id">
+                              @foreach ($genders as $id => $gender)
+                                  <option value="{{$id}}" {{old('gender_id') == $id ? 'selected' :
+                              ($id == 0 ? 'selected' : '')}}>{{$gender}}</option>
+                              @endforeach
+                            </select>
+                      </div>
+
                     <div class="form-group mb-3">
                         <label>Выберите цвет</label>
                         @error('color_id')

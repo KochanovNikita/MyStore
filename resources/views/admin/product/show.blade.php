@@ -38,6 +38,10 @@
                             <th>{{ $product->company->title }}</th>
                         </tr>
                         <tr>
+                            <th>Пол</th>
+                            <th>{{ $product->gender_title }}</th>
+                        </tr>
+                        <tr>
                             <th>Категория</th>
                             <th>{{$product->category->title}}</th>
                         </tr>

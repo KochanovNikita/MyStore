@@ -35,6 +35,7 @@ class StoreProductRequest extends FormRequest
             'category_id' => 'required|integer',
             'company_id' => 'required|integer',
             'color_id' => 'required|integer',
+            'gender_id' => 'required|integer',
             'subcategories' => 'required|array',
         ];
     }
@@ -53,6 +54,7 @@ class StoreProductRequest extends FormRequest
             'company_id.required' => 'Это поле обязательно для заполнения',
             'color_id.required' => 'Это поле обязательно для заполнения',
             'images.required' => 'Выберите все файлы',
+            'gender_id.required' => 'Это поле обязательно для заполнения',
         ];
     }
 }

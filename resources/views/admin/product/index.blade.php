@@ -32,6 +32,7 @@
                             <th>ID</th>
                             <th></th>
                             <th>Название</th>
+                            <th>Пол</th>
                             <th>Описание</th>
                             <th>Цена</th>
                             <th>Цена со скидкой</th>
@@ -50,6 +51,7 @@
                                 height="240">
                             </td>
                             <td>{{$product->title}}</td>
+                            <td>{{$product->gender_title}}</td>
                             <td>{{$product->description}}</td>
                             <td>{{$product->price}} BYN</td>
                             <td>{{$product->price_with_discount}} BYN</td>

@@ -22,6 +22,7 @@ class EditController extends Controller
         $categories = Category::all();
         $companies = Company::all();
         $colors = Color::all();
-        return view('admin.product.edit', compact('product', 'categories', 'companies', 'colors'));
+        $genders = Product::getGenders();
+        return view('admin.product.edit', compact('product', 'categories', 'companies', 'colors', 'genders'));
     }
 }

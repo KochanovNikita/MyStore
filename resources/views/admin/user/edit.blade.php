@@ -28,6 +28,7 @@
                 <input type="email" name="email" value="{{ $user->email ? $user->email : old('email') }}"
                     class="form-control">
             </div>
+
             @error('role_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

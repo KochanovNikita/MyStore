@@ -10,7 +10,23 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const GENDER_UNISEX = 0;
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+
     protected $guarded = false;
+
+    public static function getGenders() {
+        return [
+            self::GENDER_UNISEX => 'унисекс',
+            self::GENDER_MALE => 'мужской',
+            self::GENDER_FEMALE => 'женский',
+        ];
+    }
+
+    public function getGenderTitleAttribute() {
+        return self::getGenders()[$this->gender_id];
+    }
 
     public function getMainImagePathAttribute() : string {
         return 'storage/'.$this->main_image;
