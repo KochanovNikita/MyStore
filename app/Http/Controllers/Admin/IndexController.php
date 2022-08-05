@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         $usersCount = User::all()->count();
-        return view('admin.index', compact('usersCount'));
+        $productCount = Product::all()->count();
+        return view('admin.index', compact('usersCount', 'productCount'));
     }
 }
