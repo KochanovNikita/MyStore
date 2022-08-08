@@ -48,10 +48,6 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
-                <p class="mb-1">
-                    <a href="#">Не помню пароль</a>
-                </p>
                 <p class="mb-0">
                     <a href="" class="text-center">Зарегистрироваться</a>
                 </p>
