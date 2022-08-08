@@ -19,7 +19,7 @@ class OrderResource extends JsonResource
         $date = Carbon::parse($this->created_at);
         return [
             'id' => $this->id,
-            'products' => $this->order_products,
+            'products' => $this->order_products_json,
             'total_price' => $this->total_price,
             'status' => $this->status_title,
             'status_id' => $this->status,

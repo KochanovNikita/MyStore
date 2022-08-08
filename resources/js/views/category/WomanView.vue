@@ -12,7 +12,7 @@
 <script>
 import ProductCardVue from '../../components/ProductCard.vue'
 export default {
-    name: 'ManCategory',
+    name: 'WomanCategory',
     components: {
         ProductCardVue
     },
@@ -22,7 +22,7 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch('getProducts', 'woman')
+        //this.$store.dispatch('getProducts', 'woman')
     },
 }
 </script>

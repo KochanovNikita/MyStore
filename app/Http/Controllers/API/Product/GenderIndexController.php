@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class GenderIndexController extends Controller
 {
     public function man() {
-        $products = Product::where('gender_id', '=', '1')->get();
+        $products = Product::where('gender_id', '1')->get();
         return MinProductResource::collection($products);
     }
 

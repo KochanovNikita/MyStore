@@ -22,7 +22,7 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch('getProducts', 'man')
+        this.$store.dispatch('getManProducts')
     },
 }
 </script>

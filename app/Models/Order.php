@@ -29,7 +29,7 @@ class Order extends Model
         return self::getStatuses()[$this->status];
     }
 
-    public function getOrderProductsAttribute() {
+    public function getOrderProductsJsonAttribute() {
         $orders = json_decode($this->products);
         foreach ($orders as $order) {
             $product = Product::where('id',  $order->id)->firstOrFail();
