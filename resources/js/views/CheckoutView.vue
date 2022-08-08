@@ -1,99 +1,169 @@
 <template>
-  <div class="container px-3 my-5 clearfix">
-    <!-- Shopping cart table -->
-    <div class="card">
-        <div class="card-header">
-            <h2>Shopping Cart</h2>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered m-0">
-                <thead>
-                  <tr>
-                    <!-- Set columns width -->
-                    <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
-                    <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
-                    <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
-                    <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
-                    <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
-                  </tr>
-                </thead>
-                <tbody>
+    <div class="container px-3 my-5 clearfix">
+        <!-- Shopping cart table -->
+        <div class="card oldlace">
+            <div  class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-boreder m-0">
+                        <thead>
+                            <tr>
+                                <!-- Set columns width -->
+                                <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details
+                                </th>
+                                <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
+                                <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                                <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                                <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#"
+                                        class="shop-tooltip float-none text-light" title=""
+                                        data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="cart && cart.length > 0" v-for="item in cart">
+                                <cart-item :item="item" :checkCart="checkCart"></cart-item>
+                            </template>
+                            <div v-else>
+                                <h3>Вы еще не добавляли товары в корзину</h3>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- / Shopping cart table -->
 
-                  <tr>
-                    <td class="p-4">
-                      <div class="media align-items-center">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
-                        <div class="media-body">
-                          <a href="#" class="d-block text-dark">Product 1</a>
-                          <small>
-                            <span class="text-muted">Color:</span>
-                            <span class="ui-product-color ui-product-color-sm align-text-bottom" style="background:#e81e2c;"></span> &nbsp;
-                            <span class="text-muted">Size: </span> EU 37 &nbsp;
-                            <span class="text-muted">Ships from: </span> China
-                          </small>
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="mt-2">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Имя: </label> 
+                            <span class="text-danger" v-if="errors && errors.name">{{errors.name[0]}}</span>
+                            <input class="form-control" v-model="customer.name" type="text">
                         </div>
-                      </div>
-                    </td>
-                    <td class="text-right font-weight-semibold align-middle p-4">$57.55</td>
-                    <td class="align-middle p-4"><input type="text" class="form-control text-center" value="2"></td>
-                    <td class="text-right font-weight-semibold align-middle p-4">$115.1</td>
-                    <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-            <!-- / Shopping cart table -->
-
-            <div class="d-flex flex-wrap justify-content-between align-items-center">
-                <div class="mt-2">
-                    <div class="form-group mb-3">
-                        <label class="form-label">Имя:</label>
-                        <input class="form-control" v-model="customer.name" type="text">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Номер телефона: </label>
+                            <span class="text-danger" v-if="errors && errors.phone">{{errors.phone[0]}}</span>
+                            <input class="form-control" v-model="customer.phone" type="tel">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Адрес: </label>
+                            <span class="text-danger" v-if="errors && errors.address">{{errors.address[0]}}</span>
+                            <input class="form-control" v-model="customer.address" type="text">
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Номер телефона:</label>
-                        <input class="form-control" v-model="customer.phone" type="text">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Адрес:</label>
-                        <input class="form-control" v-model="customer.address" type="text">
+                      <div class="card mt-2 bg-opacity-50 bg-gradient-info" v-if="success">
+                            <div class="card-body">
+                                Товар добавлен в корзину
+                            </div>
+                        </div>
+                    <div class="text-right">
+                        <label class="text-muted font-weight-normal m-0">Total price</label>
+                        <div class="text-large">
+                            <strong>{{total_price}} BYN</strong>
+                        </div>
                     </div>
                 </div>
-                <div class="text-right">
-                  <label class="text-muted font-weight-normal m-0">Total price</label>
-                  <div class="text-large"><strong>$1164.65</strong></div>
-                </div>
-            </div>
 
-            <div class="float-right">
-              <button type="button" class="btn btn-lg btn-primary">Checkout</button>
-            </div>
+                <div class="float-right">
+                    <button v-if="user" type="button" @click.prevent="storeOrder" class="btn btn-lg btn-primary"
+                        :disabled=" !cart || cart.length < 1">Купить</button>
+                    <router-link to="/login" v-if="!user" class="btn btn-lg btn-warning" >
+                        Войдите что бы совершить покупку
+                    </router-link>
+                    </div>
 
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
+import axios from 'axios'
+import CartItem from '../components/CartItem.vue'
+
 export default {
     name: 'Checkout',
+    data() {
+        return {
+            success: false,
+            cart: JSON.parse(localStorage.getItem('cart')),
+            total_price: 0,
+            errors: null
+        }
+    },
+    components: {
+        CartItem
+    },
+    mounted() {
+        this.countTotal()
+    },
     computed: {
         user() {
             return this.$store.getters.user
         },
         customer() {
-            return {
-                name: this.user.name,
-                phone: this.user.phone,
-                address: this.user.address,
+            if (this.user) {
+                return {
+                    name: this.user.name,
+                    phone: this.user.phone,
+                    address: this.user.address,
+                }
             }
+            else {
+                return {
+                    name: '',
+                    phone: '',
+                    address: '',
+                }
+            }
+        },
+    },
+    methods: {
+        storeOrder() {
+            axios.post('/api/order', {
+                'products': this.cart,
+                'name': this.customer.name,
+                'phone': this.customer.phone,
+                'address': this.customer.address,
+                'total_price': this.total_price,
+            })
+            .then(response => {
+                localStorage.removeItem('cart')
+                this.cart = []
+                this.successBuy()
+            })
+            .catch(error => {
+                this.errors = error.response.data.errors;
+                console.log(error);
+            })
+        },
+        countTotal() {
+            this.total_price = 0
+            if(this.cart && this.cart.length > 0) {
+                this.cart.forEach(element => {
+                this.total_price = (this.total_price*1 + element.total_price*1).toFixed(2)
+            });
+            }
+        },
+        checkCart(isZero) {
+            if (isZero) {
+                this.cart = false
+                this.countTotal()
+            } else {
+                this.cart = JSON.parse(localStorage.getItem('cart'))
+                this.countTotal()
+            }
+        },
+        successBuy() {
+            this.success = true
+                setTimeout(()=>{
+                    this.success = false
+                }, 3000)
         }
     },
 }
 </script>
 
 <style>
-
+.oldlace {
+    background-color: #eee;
+}
 </style>

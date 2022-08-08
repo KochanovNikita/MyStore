@@ -11,11 +11,11 @@
                 {{product.description}}
               </h6>
               <div v-if="product.discount == 0" class="shop-thumb__price">
-                {{product.price}}
+                {{product.price}} BYN
               </div>
               <div v-else>
-                <span class="shop-thumb-price_old ">{{product.price}}</span>
-                <span class="shop-thumb-price_new mx-3">{{product.price_with_discount}}</span>
+                <span class="shop-thumb-price_old ">{{product.price}} BYN</span>
+                <span class="shop-thumb-price_new mx-3">{{product.price_with_discount}} BYN</span>
               </div>
           </router-link >
         </div>

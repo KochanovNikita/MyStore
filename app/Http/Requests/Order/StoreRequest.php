@@ -24,11 +24,20 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'products' => 'required|email',
+            'products' => 'required|array',
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
             'total_price' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Введите Ваше имя',
+            'address.required' => 'Введите Ваш адрес',
+            'phone.required' => 'Введите Ваш номер телефона',
         ];
     }
 }

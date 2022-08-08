@@ -26,8 +26,13 @@ Route::get('/color', [\App\Http\Controllers\API\DetalisController::class, 'color
 Route::prefix('product')->group(function () {
     Route::get('/', \App\Http\Controllers\API\Product\IndexController::class);
     Route::get('/{product}', \App\Http\Controllers\API\Product\ShowController::class);
+    Route::get('/cart/{product}', \App\Http\Controllers\API\Product\CartShowController::class);
     Route::get('/man', [\App\Http\Controllers\API\Product\GenderIndexController::class, 'man']);
     Route::get('/woman', [\App\Http\Controllers\API\Product\GenderIndexController::class, 'woman']);
 });
 
-Route::post('/order', \App\Http\Controllers\API\Order\StoreController::class);
+Route::group(['prefix' => 'order', 'middleware' => 'auth:sanctum'], function() {
+    Route::post('/', \App\Http\Controllers\API\Order\StoreController::class);
+    Route::get('/{user}', \App\Http\Controllers\API\Order\IndexController::class);
+});
+

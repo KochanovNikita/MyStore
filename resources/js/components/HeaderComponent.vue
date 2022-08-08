@@ -15,10 +15,17 @@
                     </router-link>
 
                 </li>
+
                 <li>
                     <router-link to="/checkout" class="nav-link px-2 link-secondary">
                         Корзина
                     </router-link>
+                </li>
+                <li v-if="user">
+                    <router-link to="/myorders" class="nav-link px-2 link-secondary">
+                        Мои заказы
+                    </router-link>
+
                 </li>
                 <li v-if="isAdmin()">
                     <a href="/admin" class="nav-link px-2 link-secondary">Управление</a>

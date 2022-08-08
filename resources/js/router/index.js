@@ -50,15 +50,20 @@ const router = createRouter({
             name: "checkout",
             component: () => import("../views/CheckoutView.vue"),
         },
+        {
+            path: "/myorders",
+            name: "myorders",
+            component: () => import("../views/MyOrdersView.vue"),
+        },
     ],
 });
 
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('x_xsrf_token')
     if( !token ) {
-        if( to.name === 'profile') {
+        if( to.name === 'profile' || to.name === 'nyorders') {
             return next( {
-                name: 'home'
+                name: 'all'
             })
         }
     }
@@ -66,7 +71,7 @@ router.beforeEach((to, from, next) => {
     if ( token ) {
         if ( to.name === 'login' || to.name === 'register') {
             return next( {
-                name: 'home'
+                name: 'all'
             })
         }
     }

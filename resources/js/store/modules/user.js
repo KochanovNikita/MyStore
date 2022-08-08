@@ -36,9 +36,14 @@ const actions = {
             .then(response => {
                 commit('setUser', response.data.data)
                 commit('setUserErrors', null)
-                dispatch('getToken', response)
+                dispatch('setToken', response)
             })
             .catch(error => {
+                if (error.response.status == 401 || error.response.status == 419) {
+                    if (localStorage.getItem('x_xsrf_token')) {
+                        localStorage.removeItem('x_xsrf_token')
+                    }
+                }
                 console.log(error);
             })
     },
@@ -47,7 +52,7 @@ const actions = {
         localStorage.removeItem('x_xsrf_token')
 
     },
-    getToken({},response) {
+    setToken({},response) {
         localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
     },
     store({commit, dispatch}, data) {

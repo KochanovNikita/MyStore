@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Product;
 
 use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Color\ColorResource;
 use App\Http\Resources\Company\CompanyResource;
 use App\Http\Resources\Image\ImageResource;
 use App\Http\Resources\Subcategory\SubcategoryResource;
@@ -37,6 +38,7 @@ class ProductResource extends JsonResource
             'category' => new CategoryResource($this->category),
             'company' => new CompanyResource($this->company),
             'product_group' => MinProductResource::collection($products),
+            'color_ru' => new ColorResource($this->color),
         ];
     }
 }

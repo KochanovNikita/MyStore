@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Order;
 
 use App\Http\Resources\User\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -15,12 +16,14 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
+        $date = Carbon::parse($this->created_at);
         return [
             'id' => $this->id,
-            'user' => new UserResource($this->user),
-            'products' => json_decode($this->products),
+            'products' => $this->order_products,
             'total_price' => $this->total_price,
-            'status' => $this->status_title
+            'status' => $this->status_title,
+            'status_id' => $this->status,
+            'created_at' => $date->format('Y-m-d h:i')
         ];
     }
 }

@@ -15,7 +15,7 @@ export default {
         HeaderComponent
     },
     mounted() {
-        axios.get('/sanctum/csrf-cookie')
+        axios.get('api/sanctum/csrf-cookie')
             .then(response => {
                 this.$store.dispatch('getUser')
             })

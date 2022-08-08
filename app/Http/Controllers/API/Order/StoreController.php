@@ -20,15 +20,16 @@ class StoreController extends Controller
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
-
         $user = auth()->user();
 
         $order = Order::create([
             'user_id' => $user->id,
+            'name' => $data['name'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
             'products' => json_encode($data['products']),
             'total_price' => $data['total_price'],
         ]);
-
-        return new OrderResource($order);
+        return $order ? response('ok', 200) : response('Произошла ошибка', 500);
     }
 }

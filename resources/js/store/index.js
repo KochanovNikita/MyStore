@@ -4,6 +4,7 @@ import category from './modules/category';
 import color from './modules/color';
 import company from './modules/company';
 import product from './modules/product';
+import order from './modules/order'
 
 const store = createStore({
     modules: {
@@ -11,7 +12,8 @@ const store = createStore({
         category,
         color,
         company,
-        product
+        product,
+        order
     }
 })
 
