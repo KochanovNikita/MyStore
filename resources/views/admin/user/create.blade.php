@@ -26,6 +26,20 @@
           value="{{old('email')}}" class="form-control">
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">Введите номер телефона</label>
+          @error('phone')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+          <input type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+375-00-000-0000"
+          pattern="^\+375\d{2}\d{3}\d{2}\d{2}$"
+          maxlength="11"
+          value="{{old('phone')}}" class="form-control">
+        </div>
+
         @error('role_id')
         <div class="text-danger">{{$message}}</div>
         @enderror
@@ -66,4 +80,5 @@
         <button type="submit" class="btn btn-primary">Отправить</button>
       </form>
 </div>
+
 @endsection

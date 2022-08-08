@@ -15,8 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/user', \App\Http\Controllers\API\User\ShowController::class);
+Route::middleware('auth:sanctum')->patch('/user/{user}', \App\Http\Controllers\API\User\UpdateControlle::class);
+
+
+Route::get('/category', [\App\Http\Controllers\API\DetalisController::class, 'category']);
+Route::get('/company', [\App\Http\Controllers\API\DetalisController::class, 'company']);
+Route::get('/color', [\App\Http\Controllers\API\DetalisController::class, 'color']);
+
+Route::prefix('product')->group(function () {
+    Route::get('/', \App\Http\Controllers\API\Product\IndexController::class);
+    Route::get('/{product}', \App\Http\Controllers\API\Product\ShowController::class);
+    Route::get('/man', [\App\Http\Controllers\API\Product\GenderIndexController::class, 'man']);
+    Route::get('/woman', [\App\Http\Controllers\API\Product\GenderIndexController::class, 'woman']);
 });
 
-Route::get('/categories', \App\Http\Controllers\API\Category\IndexController::class);
+Route::post('/order', \App\Http\Controllers\API\Order\StoreController::class);

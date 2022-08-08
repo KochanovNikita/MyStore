@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\API\Category;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Category\CategoryResource;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -17,7 +15,6 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $categories = Category::all();
-        return CategoryResource::collection($categories);
+        return view('home');
     }
 }

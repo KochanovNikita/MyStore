@@ -36,12 +36,6 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('admin.index') }}" class="nav-link">Главная</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="nav-link btn ">Выйти</button>
-                    </form>
-                </li>
             </ul>
 
             <!-- Right navbar links -->
@@ -59,7 +53,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{route('admin.index')}}" class="brand-link">
+            <a href="/" class="brand-link">
                 <span class="brand-text font-weight-light">MyStore</span>
             </a>
 

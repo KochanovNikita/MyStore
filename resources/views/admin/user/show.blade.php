@@ -40,13 +40,18 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>Роль</th>
-                            <th>{{ $user->role }}</th>
-                        </tr>
-                        <tr>
                             <th>Email</th>
                             <th>{{ $user->email }}</th>
                         </tr>
+                        <tr>
+                            <th>Номер телефона</th>
+                            <th>{{ $user->phone ? $user->phone : '---' }}</th>
+                        </tr>
+                        <tr>
+                            <th>Роль</th>
+                            <th>{{ $user->role }}</th>
+                        </tr>
+
                         <tr>
                             <th>Статус email</th>
                             <th>

@@ -20,6 +20,25 @@
                             class="form-control">
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label>Выберите группу</label>
+                        @error('group_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <select class="form-control select2" name="group_id" id="DropdownGroups" style="width: 100%;">
+                            <option selected disabled>Выберите группу</option>
+                            @foreach ($groups as $group)
+                                <option id="group{{ $group->id }}"
+                                    {{ old('group_id') == $group->id
+                                        ? 'selected'
+                                        : ($group->id == $product->group_id
+                                            ? 'selected'
+                                            : '') }}
+                                    value="{{ $group->id }}">{{ $group->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Введите краткое описание<span class="text-danger">*</span></label>
                         @error('description')
@@ -35,7 +54,7 @@
                         @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                        <textarea name="content" class="form-control" cols="30" rows="8">{{ old('content') ? old('content') : $product->content }}</textarea>
+                        <textarea name="content" class="form-control" cols="30" rows="4">{{ old('content') ? old('content') : $product->content }}</textarea>
                     </div>
 
                     <div class="mb-3">
@@ -43,7 +62,7 @@
                         @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                        <input type="number" name="price" value="{{ old('price') ? old('price') : $product->price }}"
+                        <input type="number" step="any" name="price" value="{{ old('price') ? old('price') : $product->price }}"
                             class="form-control">
                     </div>
 

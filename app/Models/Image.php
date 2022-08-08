@@ -13,10 +13,10 @@ class Image extends Model
     protected $guarded = false;
 
     public function getImagePathAttribute() : string {
-        return 'storage/'.$this->image;
+        return url('storage/'.$this->image);
     }
 
     public function getPreviewImagePathAttribute() : string {
-        return 'storage/'.$this->preview_image;
+        return url('storage/'.$this->preview_image);
     }
 }

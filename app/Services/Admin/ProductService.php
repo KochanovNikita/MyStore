@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Models\Group;
 use App\Models\Image;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -19,9 +20,7 @@ class ProductService
 
             $data['preview_image'] = self::saveImage($data['main_image'], 'products', true);
             $data['main_image'] = self::saveImage($data['main_image'], 'products');
-
             $product = Product::create($data);
-
             foreach ($images as $image) {
                 $bigImage = self::saveImage($image, 'products');
                 $smallImage = self::saveImage($image, 'products', true);

@@ -2,22 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'admin']], function() {
     Route::get('/', \App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 
     Route::group(['prefix' => 'users'], function() {
@@ -70,6 +55,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::delete('/{company}', \App\Http\Controllers\Admin\Company\DeleteController::class)->name('admin.company.destroy');
     });
 
+    Route::group(['prefix' => 'group'], function() {
+        Route::get('/', \App\Http\Controllers\Admin\Group\IndexController::class)->name('admin.group.index');
+        Route::get('/create', \App\Http\Controllers\Admin\Group\CreateController::class)->name('admin.group.create');
+        Route::post('/', \App\Http\Controllers\Admin\Group\StoreController::class)->name('admin.group.store');
+        Route::get('/{group}', \App\Http\Controllers\Admin\Group\ShowController::class)->name('admin.group.show');
+        Route::get('/{group}/edit', \App\Http\Controllers\Admin\Group\EditController::class)->name('admin.group.edit');
+        Route::patch('/{group}', \App\Http\Controllers\Admin\Group\UpdateController::class)->name('admin.group.update');
+        Route::delete('/{group}', \App\Http\Controllers\Admin\Group\DeleteController::class)->name('admin.group.destroy');
+    });
+
     Route::group(['prefix' => 'product'], function() {
         Route::get('/', \App\Http\Controllers\Admin\Product\IndexController::class)->name('admin.product.index');
         Route::get('/create', \App\Http\Controllers\Admin\Product\CreateController::class)->name('admin.product.create');
@@ -80,3 +75,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::delete('/{product}', \App\Http\Controllers\Admin\Product\DeleteController::class)->name('admin.product.destroy');
     });
 });
+
+Route::get('/{page}', \App\Http\Controllers\API\IndexController::class)->where('page', '.*')->name('home');

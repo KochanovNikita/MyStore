@@ -29,11 +29,11 @@ class Product extends Model
     }
 
     public function getMainImagePathAttribute() : string {
-        return 'storage/'.$this->main_image;
+        return url('storage/'.$this->main_image);
     }
 
     public function getPreviewImagePathAttribute() : string {
-        return 'storage/'.$this->preview_image;
+        return url('storage/'.$this->preview_image);
     }
 
     public function category() {
@@ -57,7 +57,7 @@ class Product extends Model
     }
 
     public function getPriceWithDiscountAttribute() {
-        return $this->price-($this->price/100*$this->discount);
+        return round((float)$this->price-($this->price/100*$this->discount), 2);
     }
 
 }

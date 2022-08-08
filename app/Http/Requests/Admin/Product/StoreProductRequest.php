@@ -13,7 +13,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->role_id == 1;
     }
 
     /**
@@ -32,6 +32,7 @@ class StoreProductRequest extends FormRequest
             'main_image' => 'required|image',
             'images' => 'required|array',
             'count' => 'nullable|integer',
+            'group_id' => 'required|integer',
             'category_id' => 'required|integer',
             'company_id' => 'required|integer',
             'color_id' => 'required|integer',
@@ -55,6 +56,7 @@ class StoreProductRequest extends FormRequest
             'color_id.required' => 'Это поле обязательно для заполнения',
             'images.required' => 'Выберите все файлы',
             'gender_id.required' => 'Это поле обязательно для заполнения',
+            'group_id.required' => 'Это поле обязательно для заполнения',
         ];
     }
 }

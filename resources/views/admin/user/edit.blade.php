@@ -29,6 +29,20 @@
                     class="form-control">
             </div>
 
+            <div class="mb-3">
+                <label class="form-label">Введите номер телефона</label>
+                @error('phone')
+                  <span class="text-danger">{{$message}}</span>
+                  @enderror
+                <input type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+00-000-0000"
+                pattern="^\d{2}\d{3}\d{2}\d{2}$"
+                maxlength="9"
+                value="{{old('phone') ? old('phone') : $user->phone}}" class="form-control">
+              </div>
+
             @error('role_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

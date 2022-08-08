@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('group_id')->index()->constrained('groups');
+
             $table->decimal('price');
-            $table->unsignedSmallInteger('discount')->nullable();
+            $table->unsignedSmallInteger('discount')->nullable()->default(0);
             $table->string('content');
             $table->string('description');
             $table->string('main_image');

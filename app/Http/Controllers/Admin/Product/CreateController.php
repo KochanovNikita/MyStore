@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Company;
+use App\Models\Group;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,7 @@ class CreateController extends Controller
         $companies = Company::all();
         $colors = Color::all();
         $genders = Product::getGenders();
-        return view('admin.product.create', compact('categories', 'companies', 'colors', 'genders'));
+        $groups = Group::all();
+        return view('admin.product.create', compact('categories', 'companies', 'colors', 'genders', 'groups'));
     }
 }

@@ -23,6 +23,24 @@
                         <input type="text" name="title" value="{{ old('title') }}" class="form-control">
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label>Выберите группу</label>
+                        @error('group_id')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                        <select class="form-control select2"
+                        name="group_id"
+                        id="DropdownGroups"
+                        style="width: 100%;">
+                        <option selected disabled>Выберите группу</option>
+                          @foreach ($groups as $group)
+                            <option id="group{{$group->id}}"
+                            {{old('group_id') == $group->id ? 'selected' : ''}}
+                            value="{{$group->id}}">{{$group->title}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+
                     <div class="mb-3">
                         <label class="form-label">Введите краткое описание<span class="text-danger">*</span></label>
                         @error('description')
@@ -36,7 +54,7 @@
                         @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                        <textarea name="content" class="form-control" cols="30" rows="8">{{ old('content') }}</textarea>
+                        <textarea name="content" class="form-control" cols="30" rows="4">{{ old('content') }}</textarea>
                     </div>
 
                     <div class="mb-3">
@@ -44,7 +62,7 @@
                         @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                        <input type="number" name="price" value="{{ old('price') }}" class="form-control">
+                        <input type="number" step="any" name="price" value="{{ old('price') }}" min="0" class="form-control">
                     </div>
 
                     <div class="mb-3">
@@ -177,7 +195,7 @@
                     <h4>{{$error}}</h4>
                 @endforeach
             @endif
-            <button type="submit" class="btn btn-primary">Отправить</button>
+            <button type="submit" class="btn btn-primary mb-2">Отправить</button>
         </form>
     </div>
 @endsection

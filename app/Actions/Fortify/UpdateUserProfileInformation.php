@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -35,26 +36,31 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'role_id' => ['nullable', 'integer'],
             'address' => ['nullable', 'string'],
             'avatar_path' => ['nullable', 'image'],
+            'phone' => ['nullable', 'string'],
         ])->validateWithBag('updateProfileInformation');
 
         if(!isset($input['avatar_path'])) {
-            $avatar = $user->avatar_path;
+            $input['avatar_path'] = $user->avatar_path;
         } else {
-            $avatar = $this->updateUserAvatar($input['avatar_path'], $user->avatar_path);
+            $input['avatar_path'] = $this->updateUserAvatar($input['avatar_path'], $user->avatar_path);
         }
 
-        if ($input['email'] !== $user->email &&
+        try {
+            DB::beginTransaction();
+            if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'address' => $input['address'],
-                'role_id' => $input['role_id'],
-                'avatar_path' => $avatar,
-            ])->save();
+            $user->update($input);
         }
+
+        DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+        }
+
+        return true;
     }
 
     /**
