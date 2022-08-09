@@ -10,19 +10,19 @@
                     <router-link to="/" class="nav-link px-2 link-secondary">Главная</router-link>
                 </li>
                 <li v-if="user">
-                    <router-link to="/profile" class="nav-link px-2 link-secondary">
+                    <router-link to="/Profile" class="nav-link px-2 link-secondary">
                         Профиль
                     </router-link>
 
                 </li>
 
                 <li>
-                    <router-link to="/checkout" class="nav-link px-2 link-secondary">
+                    <router-link to="/ShoppingCart" class="nav-link px-2 link-secondary">
                         Корзина
                     </router-link>
                 </li>
                 <li v-if="user">
-                    <router-link to="/myorders" class="nav-link px-2 link-secondary">
+                    <router-link to="/MyOrders" class="nav-link px-2 link-secondary">
                         Мои заказы
                     </router-link>
 

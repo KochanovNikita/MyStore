@@ -36,22 +36,22 @@ const router = createRouter({
             component: () => import("../views/RegisterView.vue"),
         },
         {
-            path: "/profile",
+            path: "/Profile",
             name: "profile",
             component: () => import("../views/UserProfileView.vue"),
         },
         {
-            path: "/product/:id",
+            path: "/Product/:id",
             name: "product",
             component: () => import("../views/ProductView.vue"),
         },
         {
-            path: "/checkout",
-            name: "checkout",
-            component: () => import("../views/CheckoutView.vue"),
+            path: "/ShoppingCart",
+            name: "shoppingcart",
+            component: () => import("../views/ShoppingCart.vue"),
         },
         {
-            path: "/myorders",
+            path: "/MyOrders",
             name: "myorders",
             component: () => import("../views/MyOrdersView.vue"),
         },

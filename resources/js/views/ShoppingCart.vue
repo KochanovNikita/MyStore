@@ -80,7 +80,7 @@ import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
 export default {
-    name: 'Checkout',
+    name: 'ShoppingCart',
     data() {
         return {
             success: false,
