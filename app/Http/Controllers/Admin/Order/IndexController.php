@@ -16,7 +16,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $orders = Order::paginate(2);
+        $orders = Order::paginate(40);
         return view('admin.order.index', compact('orders'));
     }
 }

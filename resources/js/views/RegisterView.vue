@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" name="remember" id="remember">
+                                <input type="checkbox" v-model="register.remember" id="remember">
                                 <label for="remember">
                                     Запомнить меня
                                 </label>
@@ -67,11 +67,8 @@
                     </div>
                 </form>
 
-                <p class="mb-1">
-                    <a href="#">Не помню пароль</a>
-                </p>
                 <p class="mb-0">
-                    <a href="" class="text-center">Зарегистрироваться</a>
+                    <router-link to="/login" class="text-center">У меня уже есть аккаунт</router-link>
                 </p>
             </div>
             <!-- /.login-card-body -->
@@ -96,6 +93,7 @@ export default {
                 email: '',
                 password: '',
                 password_confirmation: '',
+                remember: ''
             }
         }
     },
