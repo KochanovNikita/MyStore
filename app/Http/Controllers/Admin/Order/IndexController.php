@@ -16,7 +16,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $orders = Order::all()->orderBy('status_id', 'DESC');
+        $orders = Order::paginate(2);
         return view('admin.order.index', compact('orders'));
     }
 }

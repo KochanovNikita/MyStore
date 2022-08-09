@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\LatestScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -58,6 +59,11 @@ class Product extends Model
 
     public function getPriceWithDiscountAttribute() {
         return round((float)$this->price-($this->price/100*$this->discount), 2);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new LatestScope);
     }
 
 }

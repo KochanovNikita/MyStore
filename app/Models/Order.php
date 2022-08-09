@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Http\Resources\Product\CartProductResource;
+use App\Models\Scopes\LatestScope;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +15,7 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'status_id',
+        'status',
     ];
 
     const STATUS_WAITING = 0;
@@ -32,7 +34,7 @@ class Order extends Model
         return self::getStatuses()[$this->status];
     }
 
-    public function getOrderProductsJsonAttribute() {
+    public function getOrderProductsAttribute() {
         $orders = json_decode($this->products);
         foreach ($orders as $order) {
             $product = Product::where('id',  $order->id)->firstOrFail();
@@ -41,11 +43,15 @@ class Order extends Model
         return $orders;
     }
 
-    /* public function getCreatedAtCarbonAttribute() {
-        return Carbon::parse($this->cre)
-    } */
+    public function getCreatedAtCarbonAttribute() {
+        return Carbon::parse($this->created_at)->format('m-d-Y H:m');
+    }
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    protected static function booted() {
+        static::addGlobalScope(new LatestScope);
     }
 }

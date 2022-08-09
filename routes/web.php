@@ -77,7 +77,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'admin']], f
 
     Route::group(['prefix' => 'order'], function() {
         Route::get('/', \App\Http\Controllers\Admin\Order\IndexController::class)->name('admin.order.index');
-        Route::get('/ordert}', \App\Http\Controllers\Admin\Order\ShowController::class)->name('admin.order.show');
+        Route::get('/{order}', \App\Http\Controllers\Admin\Order\ShowController::class)->name('admin.order.show');
         Route::patch('/{order}', \App\Http\Controllers\Admin\Order\UpdateController::class)->name('admin.order.update');
     });
 });

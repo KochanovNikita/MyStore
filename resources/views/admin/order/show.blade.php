@@ -2,26 +2,13 @@
 
 @section('content-header')
     <x-content-header>
-        Панель управления категорией:
-        <div class="actions__icon"> {{ $order->title }}
-            <a href="{{ route('admin.order.edit', $order) }}" class="mx-4 ">
-                <i class="fas fa-pen text-warning"></i>
-            </a>
-            <form class="d-inline" action="{{route('admin.order.destroy', $order)}}" method="post">
-                @csrf
-                @method('delete')
-                <input type='submit' class="d-none" id="{{'deleteorder'.$order->id}}">
-                <label for="{{'deleteorder'.$order->id}}" class="delete">
-                    <i class="fas fa-trash-alt text-danger"></i>
-                </label>
-            </form>
-        </div>
+        Панель управления заказом: #{{$order->id}}
     </x-content-header>
 @endsection
 
 @section('content')
-    <div class="col-12 col-lg-6 col-xl-4">
-        <div class="card">
+    <div class="col-12 ">
+        <div class="card col mb-3">
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <tbody>
@@ -30,42 +17,91 @@
                             <th>{{ $order->id }}</th>
                         </tr>
                         <tr>
-                            <th>Имя</th>
-                            <th>{{ $order->title }}</th>
+                            <th>Покупатель</th>
+                            <th>{{ $order->name }}</th>
+                        </tr>
+                        <tr>
+                            <th>Адрес</th>
+                            <th>{{ $order->address }}</th>
+                        </tr>
+                        <tr>
+                            <th>Номер телефона</th>
+                            <th>{{ $order->phone }}</th>
+                        </tr>
+                        <tr>
+                            <th>Статус</th>
+                            <th>
+                                <form
+                                action="{{route('admin.order.update', $order)}}"
+                                method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="form-group w-25">
+                                        @error('status')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                        <select class="form-control select2"
+                                        name="status"
+                                        id="DropdownGroups"
+                                        style="width: 100%;">
+                                          @foreach ($statuses as $id => $status)
+                                            <option id="status{{$id}}"
+                                            {{ $id == $order->status ? 'selected' : ''}}
+                                            value="{{$id}}">{{$status}}</option>
+                                          @endforeach
+                                        </select>
+                                        <button class="btn btn-primary mx-2">Сменить статус</button>
+                                      </div>
+
+                                </form>
+                            </th>
+                      </tr>
+                        <tr>
+                            <th>Время оформления</th>
+                            <th>{{ $order->created_at_carbon }}</th>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
-    </div>
-    <div class="col-12 col-lg-6 col-xl-4">
-        <div class="card">
+        <div class="card col-12 mb-3">
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Подкатегория</th>
+                            <th>ID товара</th>
+                            <th>Наименование</th>
+                            <th>Количество</th>
+                            <th>Цена за штуку</th>
+                            <th>Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($order->subcategories as $suborder)
+                        @foreach ($order->order_products as $product)
                             <tr>
+                                <th>{{ $product->id}}</th>
                                 <th>
-                                    {{$suborder->id}}
-                                </th>
-                                <th>
-                                    <a href="{{route('admin.suborder.show', $suborder->id)}}">
-                                        {{$suborder->title}}
+                                    <a href="{{route('admin.product.show',$product->id)}}">
+                                        {{ $product->product->title}}
                                     </a>
                                 </th>
+                                <th>{{ $product->quantity}}</th>
+                                <th>{{ $product->price}} BYN</th>
+                                <th>{{ $product->total_price}} BYN</th>
                             </tr>
                         @endforeach
+                        <tr>
+                            <th colspan="4">
+                                <h3>Итог:</h3>
+                            </th>
+                            <th>
+                                <h3>{{$order->total_price}} BYN</h3>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
+
 @endsection
