@@ -146,7 +146,8 @@ export default {
                 if (item)
                     cart.push(item)
 
-                localStorage.setItem('cart', JSON.stringify(cart)) 
+                localStorage.setItem('cart', JSON.stringify(cart))
+                this.$store.dispatch('setCart')
                 this.successAdd()
             }
         },

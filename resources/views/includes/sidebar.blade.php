@@ -4,6 +4,9 @@
       <x-sidebar-items :title="'Пользователи'"
       :link="route('admin.user.index')" :icon="'fas fa-users'"></x-sidebar-items>
 
+      <x-sidebar-items :title="'Заказы'"
+      :link="route('admin.order.index')" :icon="'fas fa-money-bill-wave'"></x-sidebar-items>
+
       <x-sidebar-items :title="'Категории'"
       :link="route('admin.category.index')" :icon="'fas fa-list'"></x-sidebar-items>
 

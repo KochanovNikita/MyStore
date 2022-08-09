@@ -1,5 +1,5 @@
 <template>
-    <tr v-if="item && product">
+    <tr v-if="item && product && !destroyed">
         <td class="p-4">
             <div class="media align-items-center">
                 <img :src="product.preview_image" class="d-block cart-img ui-w-40 ui-bordered mr-4"
@@ -45,9 +45,10 @@ export default {
     data() {
         return {
             product: null,
+            destroyed: false
         }
     },
-    props: ['item', 'checkCart'],
+    props: ['item'],
     computed: {
         newItem() {
             return {
@@ -89,19 +90,16 @@ export default {
                     element.total_price = this.newItem.total_price
                 }
             });
-            
+
             localStorage.setItem('cart', JSON.stringify(cart))
-            this.checkCart(false)
+            this.$store.dispatch('setCart')
         },
         removeItem() {
             let storage = JSON.parse(localStorage.getItem('cart'))
-            let newStorage = storage.filter(x => x.id != this.newItem.id ? x : false)
+            let newStorage = storage.filter(x => x.id !== this.newItem.id)
             localStorage.setItem('cart', JSON.stringify(newStorage))
-            if (newStorage.length == 0) {
-                this.checkCart(true)
-            } else {
-                this.checkCart(false)
-            }
+            this.$store.dispatch('setCart')
+            this.destroyed = true
         }
     },
 

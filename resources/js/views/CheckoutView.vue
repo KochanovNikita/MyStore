@@ -19,8 +19,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-if="cart && cart.length > 0" v-for="item in cart">
-                                <cart-item :item="item" :checkCart="checkCart"></cart-item>
+                            <template v-if="cart && cart.length > 0" v-for="item in cart" :key="item.id">
+                                <cart-item :item="item" ></cart-item>
                             </template>
                             <div v-else>
                                 <h3>Вы еще не добавляли товары в корзину</h3>
@@ -33,7 +33,7 @@
                 <div class="d-flex flex-wrap justify-content-between align-items-center">
                     <div class="mt-2">
                         <div class="form-group mb-3">
-                            <label class="form-label">Имя: </label> 
+                            <label class="form-label">Имя: </label>
                             <span class="text-danger" v-if="errors && errors.name">{{errors.name[0]}}</span>
                             <input class="form-control" v-model="customer.name" type="text">
                         </div>
@@ -63,7 +63,7 @@
 
                 <div class="float-right">
                     <button v-if="user" type="button" @click.prevent="storeOrder" class="btn btn-lg btn-primary"
-                        :disabled=" !cart || cart.length < 1">Купить</button>
+                        :disabled=" !cart || cart.length < 1 || cartIsEmpty">Купить</button>
                     <router-link to="/login" v-if="!user" class="btn btn-lg btn-warning" >
                         Войдите что бы совершить покупку
                     </router-link>
@@ -84,13 +84,19 @@ export default {
     data() {
         return {
             success: false,
-            cart: JSON.parse(localStorage.getItem('cart')),
             total_price: 0,
-            errors: null
+            errors: null,
+            cartIsEmpty: false
         }
     },
     components: {
         CartItem
+    },
+    created() {
+        this.$store.dispatch('setCart')
+    },
+    updated() {
+        this.$store.dispatch('setCart')
     },
     mounted() {
         this.countTotal()
@@ -115,6 +121,9 @@ export default {
                 }
             }
         },
+        cart() {
+            return this.$store.getters.cart
+        }
     },
     methods: {
         storeOrder() {
@@ -127,7 +136,7 @@ export default {
             })
             .then(response => {
                 localStorage.removeItem('cart')
-                this.cart = []
+                this.$store.dispatch('setCart')
                 this.successBuy()
             })
             .catch(error => {
@@ -143,15 +152,6 @@ export default {
             });
             }
         },
-        checkCart(isZero) {
-            if (isZero) {
-                this.cart = false
-                this.countTotal()
-            } else {
-                this.cart = JSON.parse(localStorage.getItem('cart'))
-                this.countTotal()
-            }
-        },
         successBuy() {
             this.success = true
                 setTimeout(()=>{
@@ -159,6 +159,8 @@ export default {
                 }, 3000)
         }
     },
+
+
 }
 </script>
 

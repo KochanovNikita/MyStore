@@ -74,6 +74,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'admin']], f
         Route::patch('/{product}', \App\Http\Controllers\Admin\Product\UpdateController::class)->name('admin.product.update');
         Route::delete('/{product}', \App\Http\Controllers\Admin\Product\DeleteController::class)->name('admin.product.destroy');
     });
+
+    Route::group(['prefix' => 'order'], function() {
+        Route::get('/', \App\Http\Controllers\Admin\Order\IndexController::class)->name('admin.order.index');
+        Route::get('/ordert}', \App\Http\Controllers\Admin\Order\ShowController::class)->name('admin.order.show');
+        Route::patch('/{order}', \App\Http\Controllers\Admin\Order\UpdateController::class)->name('admin.order.update');
+    });
 });
 
 Route::get('/{page}', \App\Http\Controllers\API\IndexController::class)->where('page', '.*')->name('home');
