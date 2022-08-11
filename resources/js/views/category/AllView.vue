@@ -6,7 +6,7 @@
         </template>
 
 
-    </div> <!-- / .row -->
+    </div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch('getProducts')
+        this.$store.dispatch('getProducts', {})
     },
 }
 </script>

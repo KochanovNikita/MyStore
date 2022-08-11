@@ -16,13 +16,14 @@ export default {
     components: {
         ProductCardVue
     },
+    mounted() {
+        this.$store.dispatch('setGenderMutation', 1)
+        this.$store.dispatch('getProducts', {'gender_id': 1})
+    },
     computed: {
         products() {
             return this.$store.getters.products
         },
-    },
-    mounted() {
-        this.$store.dispatch('getManProducts')
     },
 }
 </script>

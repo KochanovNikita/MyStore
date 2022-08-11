@@ -12,6 +12,7 @@ class ProductFilter extends AbstractFilter
     const SUBCATEGORIES = 'subcategories';
     const COMPANIES = 'companies';
     const GROUPS = 'groups';
+    const PRICES = 'prices';
     const GENDER_ID = 'gender_id';
 
     protected function getCallbacks(): array
@@ -24,6 +25,7 @@ class ProductFilter extends AbstractFilter
             self::COMPANIES => [$this, 'companies'],
             self::GROUPS => [$this, 'groups'],
             self::GENDER_ID => [$this, 'gender_id'],
+            self::PRICES => [$this, 'prices']
         ];
     }
 
@@ -46,10 +48,14 @@ class ProductFilter extends AbstractFilter
     }
 
     public function companies(Builder $builder, $companies) {
-        $builder->whereIn('color_id', $companies);
+        $builder->whereIn('company_id', $companies);
     }
 
     public function gender_id(Builder $builder, $gender_id) {
         $builder->where('gender_id', $gender_id);
+    }
+
+    public function prices(Builder $builder, $prices) {
+        $builder->whereBetween('price', $prices);
     }
 }

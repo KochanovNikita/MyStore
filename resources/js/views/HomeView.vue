@@ -1,6 +1,18 @@
 <script>
 export default {
     name: 'Home',
+    data() {
+        return {
+            titleFilter: null,
+            subcategoriesFilter: [],
+            companiesFilter: [],
+            colorsFilter: [],
+            pricesFilter: {
+                priceFrom: 0,
+                priceTo: 9999999.
+            },
+        }
+    },
     mounted() {
         this.$store.dispatch('getCategories')
         this.$store.dispatch('getColors')
@@ -15,13 +27,22 @@ export default {
         },
         companies() {
             return this.$store.getters.companies
+        },
+        pagination() {
+            return this.$store.getters.pagination
         }
     },
     methods: {
-        click() {
-            console.log(this.colors);
-            console.log(this.categories);
-            console.log(this.companies);
+        filterProducts(page) {
+            this.$store.dispatch('getProducts', {
+                'title': this.titleFilter,
+                'prices': this.pricesFilter,
+                'subcategories': this.subcategoriesFilter,
+                'companies': this.companiesFilter,
+                'colors': this.colorsFilter,
+                'gender_id': this.$store.getters.gender,
+                'page': page
+            })
         }
     },
 }
@@ -34,9 +55,11 @@ export default {
                 <div class="row mb-3">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Искать товары">
+                            <input type="text"
+                            v-model="titleFilter"
+                            class="form-control" placeholder="Искать товары">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" @click="click">
+                                <button class="btn btn-primary" @click="filterProducts">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
@@ -53,9 +76,13 @@ export default {
                     <div class="form-group shop-filter__price">
                         <div class="row">
                             <div>
-                                <input id="shop-filter-price_from" type="number" min="0" class="form-control mb-1"
+                                <input id="shop-filter-price_from"
+                                v-model="pricesFilter.priceFrom"
+                                type="number" min="0" class="form-control mb-1"
                                     placeholder="From" />
-                                <input id="shop-filter-price_to" type="number" min="0" class="form-control mb-1"
+                                <input id="shop-filter-price_to"
+                                v-model="pricesFilter.priceTo"
+                                type="number" min="0" class="form-control mb-1"
                                     placeholder="To" />
                             </div>
                         </div>
@@ -77,9 +104,15 @@ export default {
                                 <div :id="`flush-collapseOne${category.id}`" class="accordion-collapse collapse"
                                     :aria-labelledby="`flush-headingOne${category.id}`" :data-bs-parent="`#accordionFlush${category.id}`">
                                     <ul class="list-group">
-                                        <div class="list-group-item list-group-item-action list-group-item-light " v-for="subcategory in category.subcategories">
-                                           {{subcategory.title}}
-                                        </div>
+                                        <li class="list-group-item list-group-item-action list-group-item-light px-5" v-for="subcategory in category.subcategories">
+                                           <input class="form-check-input" type="checkbox"
+                                           v-model="subcategoriesFilter"
+                                           :value="subcategory.id" :id="`flexCheckSubcategori${subcategory.id}`"/>
+                                           <label class="form-check-label" :for="`flexCheckSubcategori${subcategory.id}`">
+                                                {{subcategory.title}}
+                                            </label>
+
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -94,7 +127,9 @@ export default {
                     <div class="form-check">
                         <template v-if="companies" v-for="company in companies">
                             <div class="row py-2 px-4">
-                                <input class="form-check-input" type="checkbox" :value="company.id" :id="`company${company.id}`">
+                                <input class="form-check-input"
+                                v-model="companiesFilter"
+                                type="checkbox" :value="company.id" :id="`company${company.id}`">
                                 <label class="form-check-label" :for="`company${company.id}`">
                                     {{company.title}}
                                 </label>
@@ -111,7 +146,9 @@ export default {
                     <div>
                         <div class="row">
                             <template v-if="colors" v-for="color in colors">
-                            <input class="d-none" type="checkbox" :value="color.id" :id="`color${color.id}`">
+                            <input class="d-none"
+                            v-model="colorsFilter"
+                            type="checkbox" :value="color.id" :id="`color${color.id}`">
                                 <label class="color m-1"
                                 :style="`background-color: ${color.title};`"
                                 :for="`color${color.id}`">
@@ -126,13 +163,13 @@ export default {
                 <!-- Filters -->
                 <ul class="shop__sorting">
                     <li :class="this.$route.name == 'all' ? 'active' : ''">
-                        <router-link to="/">Всем</router-link>
+                        <router-link @click="$store.dispatch('setGender', '')" to="/">Всем</router-link>
                     </li>
                     <li :class="this.$route.name == 'man' ? 'active' : ''">
-                        <router-link to="/man">Мужчинам</router-link>
+                        <router-link @click="$store.dispatch('setGender', 1)" to="/man">Мужчинам</router-link>
                         </li>
                     <li :class="this.$route.name == 'woman' ? 'active' : ''">
-                        <router-link to="/woman">Женщинам</router-link>
+                        <router-link @click="$store.dispatch('setGender', 2)" to="/woman">Женщинам</router-link>
                     </li>
                 </ul>
 
@@ -142,9 +179,40 @@ export default {
 
 
                 <!-- Pagination -->
-                <div class="row">
+                <div v-if="pagination && pagination.last_page != 1" class="row mb-3">
                     <div class="col-sm-12">
+                   <ul class="pagination text-center d-flex">
+                        <li v-if="pagination.current_page != 1" class="next">
+                            <a @click.prevent="filterProducts(pagination.current_page-1)">
+                                &lt;&lt;
+                            </a>
+                        </li>
+                        <template v-for="link in pagination.links">
+                            <li v-if="Number(link.label) &&
+                            (pagination.current_page - link.label < 2 &&
+                            pagination.current_page - link.label > -2) ||
+                            Number(link.label) === 1 || Number(link.label) === pagination.last_page"
+                                @click.prevent="filterProducts(link.label)">
+                                <a :class="link.active ? 'active' : ''">{{ link.label }}</a>
+                            </li>
+                            <template v-if="Number(link.label) &&
+                                pagination.current_page !== 3 &&
+                                pagination.current_page - link.label === 2 ||
+                                Number(link.label) &&
+                                pagination.current_page !== pagination.last_page - 2 &&
+                                pagination.current_page - link.label === -2">
+                                <div>
+                                    ...
+                                </div>
+                            </template>
+                        </template>
 
+                        <li v-if="pagination.current_page != pagination.last_page" class="next">
+                            <a @click.prevent="filterProducts(pagination.current_page+1)">
+                                >>
+                            </a>
+                        </li>
+                    </ul>
                     </div>
                 </div> <!-- / .row -->
 
@@ -225,4 +293,27 @@ input[type=checkbox]:checked + .color{
         font-weight: 600;
     }
 }
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.pagination a.active {
+  background-color: #cd1520;
+  color: white;
+  border: 1px solid #cd1520;
+}
+
+.pagination a:hover:not(.active) {background-color: #c9323c;}
 </style>

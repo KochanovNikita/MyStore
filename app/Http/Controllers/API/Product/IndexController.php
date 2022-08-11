@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\API\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\FilterProductRequest;
 use App\Http\Resources\Product\MinProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Filters\ProductFilter;
 
 class IndexController extends Controller
 {
@@ -15,9 +16,12 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(FilterProductRequest $request)
     {
-        $products = Product::all();
+        $data = $request->validated();
+        $filter = app()->make(ProductFilter::class, ['queryParams' => array_filter($data)]);
+        isset($data['page']) ? $page = $data['page'] : $page = 1;
+        $products = Product::filter($filter)->paginate(12, ['*'], 'page', $page);
         return MinProductResource::collection($products);
     }
 }

@@ -24,11 +24,10 @@ Route::get('/company', [\App\Http\Controllers\API\DetalisController::class, 'com
 Route::get('/color', [\App\Http\Controllers\API\DetalisController::class, 'color']);
 
 Route::prefix('product')->group(function () {
-    Route::get('/', \App\Http\Controllers\API\Product\IndexController::class);
+    //Route::get('/', \App\Http\Controllers\API\Product\IndexController::class);
+    Route::post('/', \App\Http\Controllers\API\Product\IndexController::class);
     Route::get('/{product}', \App\Http\Controllers\API\Product\ShowController::class);
     Route::get('/cart/{product}', \App\Http\Controllers\API\Product\CartShowController::class);
-    Route::get('/man', 'API\GenderIndexController@man');
-    Route::get('/woman', [\App\Http\Controllers\API\Product\GenderIndexController::class, 'woman']);
 });
 
 Route::group(['prefix' => 'order', 'middleware' => 'auth:sanctum'], function() {
