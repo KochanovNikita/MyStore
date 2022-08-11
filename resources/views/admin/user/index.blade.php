@@ -16,9 +16,9 @@
                 <form method="get" action="{{route('admin.user.index')}}" class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text"
-                        name="name"
-                        @isset($_GET['name'])
-                        value="{{$_GET['name'] ? $_GET['name'] : '' }}"
+                        name="key_word"
+                        @isset($_GET['key_word'])
+                        value="{{$_GET['key_word'] ? $_GET['key_word'] : '' }}"
                         @endisset
 
                         class="form-control float-right"
@@ -39,6 +39,7 @@
                             <th>ID</th>
                             <th>Имя</th>
                             <th colspan="2">Email</th>
+                            <th>Номер телефона</th>
                             <th>Роль</th>
                             <th colspan="3">Действие</th>
                         </tr>
@@ -55,6 +56,7 @@
                                 <i class="fas fa-user-times text-secondary mx-2"></i>
                                 @endif
                             </td>
+                            <td>{{$user->phone ? $user->phone : ''}}</td>
                             <td>{{$user->role}}</td>
                             <td colspan="3" class="actions__icon">
                                 <a href="{{route('admin.user.show', $user)}}">

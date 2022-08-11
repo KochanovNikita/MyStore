@@ -10,16 +10,67 @@
             <div class="card-header">
                 <h3 class="card-title">Заказы</h3>
 
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                <form action="{{route('admin.order.index')}}" class="card-tools">
+                    <div class="input-group mb-3">
+                        <select class="form-control select2" name="price">
+                            <option value="" selected>Без сортировки</option>
+                            <option
+                            @isset($_GET['price'])
+                                {{
+                                    $_GET['price'] == 1 ? 'selected' : ''
+                                }}
+                            @endisset
+                            value="1">По возрастанию цены</option>
+                            <option value="2"
+                            @isset($_GET['price'])
+                                {{
+                                    $_GET['price'] == 2 ? 'selected' : ''
+                                }}
+                            @endisset>По убыванию цены</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="form-control select2" name="time">
+                            <option value="" selected>Без сортировки</option>
+                            <option value="1"
+                            @isset($_GET['time'])
+                                {{
+                                    $_GET['time'] == 1 ? 'selected' : ''
+                                }}
+                            @endisset>Сначала новые</option>
+                            <option value="2"
+                            @isset($_GET['time'])
+                                {{
+                                    $_GET['time'] == 2 ? 'selected' : ''
+                                }}
+                            @endisset>Сначала старые</option>
+                        </select>
+                    </div>
+                    <div class="input-group d-flex mb-3">
+                        <input class="form-control" name="prices[]"
+                        value="{{
+                            isset($_GET['prices'][0]) ? $_GET['prices'][0] : '0'
+                        }}"
+                        type="number" min="0" placeholder="Цена от">
+                        <input class="form-control" name="prices[]"
+                        value="{{
+                            isset($_GET['prices'][1]) ? $_GET['prices'][1] : '9999999'
+                        }}"
+                        type="number" min="0" placeholder="Цена до">
+                    </div>
+                    <div class="input-group w-100" style="width: 150px;">
+                        <input type="text" name="user"
+                        @isset($_GET['user'])
+                                value="{{$_GET['user'] ? $_GET['user'] : ''}}"
+                        @endisset
+                        class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div class="card-body table-responsive p-0 mb-3">
@@ -43,7 +94,6 @@
                                 <a href="{{route('admin.user.show', $order->user_id)}}">{{$order->name}}</a>
                             </td>
                             <td>{{$order->address}}</td>
-                            {{-- <td>{{$order->}}</td> --}}
                             <td>{{$order->total_price}} BYN</td>
                             <td>{{$order->status_title}}</td>
                             <td>{{$order->created_at_carbon}}</td>

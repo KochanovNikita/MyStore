@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="col-12 col-lg-6 col-xl-4">
+    <div class="col-12 col-xl-6">
         <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">

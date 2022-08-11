@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\Company;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\CompanyFilter;
+use App\Http\Requests\Admin\Filter\CompanyFilterRequest;
 use App\Models\Company;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -14,9 +15,11 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(CompanyFilterRequest $request)
     {
-        $companies = Company::paginate(15);
+        $data = $request->validated();
+        $filter = app()->make(CompanyFilter::class, ['queryParams' => array_filter($data)]);
+        $companies = Company::filter($filter)->paginate(15)->withQueryString();
         return view('admin.company.index', compact('companies'));
     }
 }

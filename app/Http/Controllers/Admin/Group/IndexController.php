@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\Group;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\GroupFilter;
+use App\Http\Requests\Admin\Filter\GroupFilterRequest;
 use App\Models\Group;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -14,9 +15,11 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(GroupFilterRequest $request)
     {
-        $groups = Group::paginate(15);
+        $data = $request->validated();
+        $filter = app()->make(GroupFilter::class, ['queryParams' => array_filter($data)]);
+        $groups = Group::filter($filter)->paginate(15)->withQueryString();
         return view('admin.group.index', compact('groups'));
     }
 }

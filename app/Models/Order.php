@@ -4,15 +4,15 @@ namespace App\Models;
 
 use App\Http\Resources\Product\CartProductResource;
 use App\Models\Scopes\LatestScope;
+use App\Models\Traits\Filterable;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Filterable;
 
     protected $fillable = [
         'status',

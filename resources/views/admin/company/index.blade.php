@@ -13,16 +13,22 @@
             <div class="card-header">
                 <h3 class="card-title">Компании</h3>
 
-                <div class="card-tools">
+                <form action="{{route('admin.company.index')}}" class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text"
+                        name="title"
+                        @isset($_GET['title'])
+                            value="{{$_GET['title'] ? $_GET['title'] : ''}}"
+                        @endisset
+                        class="form-control float-right"
+                        placeholder="Search">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div class="card-body table-responsive p-0 mb-3">

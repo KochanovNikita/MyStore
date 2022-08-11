@@ -5,13 +5,10 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>404 Error Page</h1>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-12">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active">
-                                <a class="btn btn-primary mx-3" href="{{route('welcome')}}">На главную</a>
+                                <a class="btn btn-primary mx-3" href="/">На главную</a>
                             </li>
                             <li class="">
                                 <form action="{{route('logout')}}" method="POST">

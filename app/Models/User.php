@@ -4,8 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Filters\QueryFilter;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Filterable;
 
     const ROLE_ADMIN = 1;
     const ROLE_USER = 2;
@@ -32,10 +31,6 @@ class User extends Authenticatable
 
     public function getAvatarAttribute() : string {
         return 'storage/'.$this->avatar_path;
-    }
-
-    public function scopeFilter(Builder $builder, QueryFilter $filter) {
-        return $filter->apply($builder);
     }
 
     public function orders() {

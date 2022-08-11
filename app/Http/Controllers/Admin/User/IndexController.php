@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Filters\UserFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Filters\UserFilter;
+use App\Http\Requests\Admin\Filter\UserFilterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -16,8 +15,10 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(UserFilter $filter)
+    public function __invoke(UserFilterRequest $request)
     {
+        $data = $request->validated();
+        $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
         $users = User::filter($filter)->paginate(20)->withQueryString();
         return view('admin.user.index', compact('users'));
     }
