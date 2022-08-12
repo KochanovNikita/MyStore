@@ -11,13 +11,16 @@
 
 MyStore - интернет-магазин одежды. Написан на стеке Laravel + Vue. Аутентификация и авторизация реализованы с помощью Laravel Sanctum + Laravel Fortify. 
 
+На рисунках ниже представлены страницы авторизиции.
 <p align="center">
-    На рисунках ниже представлены страницы авторизиции.
-    
-    ![image](https://user-images.githubusercontent.com/99824321/184366415-77c0cacb-89d8-4d5c-a843-f82644bb9228.png)
-    ![image](https://user-images.githubusercontent.com/99824321/184366660-c52d5c7e-20d0-479e-a190-d4643354e9d0.png)
-
+    ![image](https://user-images.githubusercontent.com/99824321/184367092-83275420-34fc-4cbb-a3bb-6d4526b68fd8.png)
+    Страница регистрации
 </p>
+<p align="center">
+    ![image](https://user-images.githubusercontent.com/99824321/184367281-19738d9b-bf69-4053-ab30-ebab27e4080c.png)
+    Страница авторизации
+</p>
+
 Для разграничение прав доступа пользователей используется ролевая модель.
 
 Магазин разделен на две части, пользовательскую и панель адмнистратора. Пользовательская часть интерфейса написана на Vue. Основой панели администратора была выбрана панель от <a href="https://adminlte.io/">AdminLTE</a>, в последствии разбиитая на blade-компоненты.
