@@ -17,6 +17,8 @@ MyStore - интернет-магазин одежды. Написан на ст
     Страница регистрации
 </p>
 <p align="center"
+   ![image](https://user-images.githubusercontent.com/99824321/184368492-97f73c32-66b0-4d31-81b3-84394bf28f5e.png)
+
      <img src="https://user-images.githubusercontent.com/99824321/184368324-98c970aa-db59-48a3-b695-7783083727d5.png"/>
     Страница авторизации
 </p>
