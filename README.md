@@ -13,11 +13,11 @@ MyStore - интернет-магазин одежды. Написан на ст
 
 На рисунках ниже представлены страницы авторизиции.
 <p align="center">
-    ![image](https://user-images.githubusercontent.com/99824321/184367092-83275420-34fc-4cbb-a3bb-6d4526b68fd8.png)
+    [image](https://user-images.githubusercontent.com/99824321/184367092-83275420-34fc-4cbb-a3bb-6d4526b68fd8.png)
     Страница регистрации
 </p>
 <p align="center">
-    ![image](https://user-images.githubusercontent.com/99824321/184367281-19738d9b-bf69-4053-ab30-ebab27e4080c.png)
+    [image](https://user-images.githubusercontent.com/99824321/184367281-19738d9b-bf69-4053-ab30-ebab27e4080c.png)
     Страница авторизации
 </p>
 
