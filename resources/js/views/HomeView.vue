@@ -59,7 +59,7 @@ export default {
                             v-model="titleFilter"
                             class="form-control" placeholder="Искать товары">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" @click="filterProducts">
+                                <button class="btn btn-primary" @click="filterProducts(1)">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
@@ -71,7 +71,7 @@ export default {
                 <form class="shop__filter">
                     <!-- Price -->
                     <h5 class="headline">
-                        <span>Price</span>
+                        <span>Цена</span>
                     </h5>
                     <div class="form-group shop-filter__price">
                         <div class="row">
