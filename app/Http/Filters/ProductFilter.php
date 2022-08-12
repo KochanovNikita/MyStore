@@ -58,4 +58,8 @@ class ProductFilter extends AbstractFilter
     public function prices(Builder $builder, $prices) {
         $builder->whereBetween('price', $prices);
     }
+
+    public function groups(Builder $builder, $groups) {
+        $builder->whereIn('group_id', $groups);
+    }
 }
