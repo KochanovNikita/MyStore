@@ -33,6 +33,14 @@
                             <th>Имя</th>
                             <th>{{ $category->title }}</th>
                         </tr>
+                        <tr>
+                            <th>Товары</th>
+                            <th>
+                                <a href="{{route('admin.product.index', 'category_id='.$category->id)}}">
+                                    {{ $category->title }}
+                                </a>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>

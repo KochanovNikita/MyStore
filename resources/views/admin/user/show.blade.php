@@ -34,6 +34,9 @@
                             <th>{{ $user->name }}</th>
                         </tr>
                         <tr>
+                            <th ><a href="{{route('admin.order.index', 'title='.$user->name)}}">Заказы</a></th>
+                        </tr>
+                        <tr>
                             <th>Аватар</th>
                             <th>
                                 <img src="{{ url($user->avatar) }}" width="80" />

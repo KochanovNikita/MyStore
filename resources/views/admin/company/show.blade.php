@@ -33,6 +33,14 @@
                             <th>Название</th>
                             <th>{{ $company->title }}</th>
                         </tr>
+                        <tr>
+                            <th>Товары</th>
+                            <th>
+                                <a href="{{route('admin.product.index', 'company_id='.$company->id)}}">
+                                    {{ $company->title }}
+                                </a>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>

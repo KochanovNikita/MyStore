@@ -34,6 +34,10 @@
                             <th>{{ $product->title }}</th>
                         </tr>
                         <tr>
+                            <th>Группа</th>
+                            <th><a href="{{route('admin.product.index', 'group_id='.$product->group_id)}}">{{$product->group->title}}</a></th>
+                        </tr>
+                        <tr>
                             <th>Брэнд</th>
                             <th>{{ $product->company->title }}</th>
                         </tr>
@@ -69,7 +73,6 @@
                             <th>Подробнее</th>
                             <th class="text-wrap">{{ $product->content }}</th>
                         </tr>
-
                     </tbody>
                 </table>
             </div>

@@ -33,6 +33,13 @@
                             <th>Наименование</th>
                             <th>{{ $group->title }}</th>
                         </tr>
+                        <tr>
+                            <th>
+                                <a href="{{route('admin.product.index', 'group_id='.$group->id)}}">
+                                    Товары
+                                </a>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>

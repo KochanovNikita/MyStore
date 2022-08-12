@@ -34,6 +34,14 @@
                             <th>{{ $subcategory->title }}</th>
                         </tr>
                         <tr>
+                            <th>Товары</th>
+                            <th>
+                                <a href="{{route('admin.product.index', 'subcategory_id='.$subcategory->id)}}">
+                                    {{ $subcategory->title }}
+                                </a>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>Родительская категория</th>
                             <th>
                                 <a href="{{route('admin.category.show', $subcategory->category->id)}}">

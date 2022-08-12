@@ -27,7 +27,7 @@ class OrderFilter extends AbstractFilter
     public function user(Builder $builder, $value)
     {
         $builder->where('name', 'like', "%{$value}%")
-            ->orWhere('email', 'like', "%{$value}%");
+            ->orWhere('phone', 'like', "%{$value}%");
     }
 
     public function prices(Builder $builder, $value)

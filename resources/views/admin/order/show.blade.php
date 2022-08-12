@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <th>Покупатель</th>
-                            <th>{{ $order->name }}</th>
+                            <th><a href="{{route('admin.user.show', $order->user->id)}}">{{ $order->name }}</a></th>
                         </tr>
                         <tr>
                             <th>Адрес</th>

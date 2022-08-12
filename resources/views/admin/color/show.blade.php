@@ -41,6 +41,13 @@
                                 <x-color :color="$color->title_en"></x-color>
                             </th>
                         </tr>
+                        <tr>
+                            <th>
+                                <a href="{{route('admin.product.index', 'color_id='.$color->id)}}">
+                                    Товары
+                                </a>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
