@@ -47,8 +47,9 @@ MyStore - интернет-магазин одежды. Написан на ст
     <img src="https://user-images.githubusercontent.com/99824321/184531509-08a18c9e-251b-426e-b1b2-58c664f57fc5.png">
     Страница товара
     <img src="https://user-images.githubusercontent.com/99824321/184531528-66fbaf21-576b-4f39-a905-5dbfbfeec35d.png">
+    Страница редактирования
 </p>
 
-
+Остальные разделы выглядят примерно так же.
 
 После клонирования репозитория используйте команды composer install и npm install для установки всех необходимых зависимостей.
