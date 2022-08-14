@@ -39,6 +39,14 @@ MyStore - интернет-магазин одежды. Написан на ст
 <p align="center">
     <img src="https://user-images.githubusercontent.com/99824321/184370222-cf1abaae-7d95-4b2d-b9c3-efa2ea1eea86.png"/>
 </p>
+Администратор имеет все необходимые функции для управления сайтом. Для каждого раздела в управлении реализован собственный CRUD.
+
+<p align="center">
+![image](https://user-images.githubusercontent.com/99824321/184531479-5b861420-1c36-4e9e-a09a-1715fce6be81.png)
+![image](https://user-images.githubusercontent.com/99824321/184531509-08a18c9e-251b-426e-b1b2-58c664f57fc5.png)
+![image](https://user-images.githubusercontent.com/99824321/184531528-66fbaf21-576b-4f39-a905-5dbfbfeec35d.png)
+</p>
+
 
 
 После клонирования репозитория используйте команды composer install и npm install для установки всех необходимых зависимостей.
